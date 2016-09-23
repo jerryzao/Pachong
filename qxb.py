@@ -8,16 +8,6 @@ import MySQLdb
 
 class qxb(object):
     def __init__(self):
-        # self.database_client_connection = pyodbc.connect('DRIVER={MySQL ODBC 5.2 Driver};SERVER=172.16.0.20;PORT=3306;DATABASE=SpotCheck.qxb;User=qianjing;password=zxcASDqwe!@#')
-        # self.mysql_cur = self.database_client_connection.cursor()
-        # self.column_dict = {
-        #     u'公司名':'gsm',
-        #     u'信用代码':'xydm',
-        #     u'组织机构代码':'zzjgdm',
-        #     u'注册号':'zch',
-        #     u'时间':'updatetime'
-        # }
-        # self.progress=None
         pass
 
     def create_cursor(self):
@@ -49,6 +39,7 @@ class qxb(object):
         # print url
 
         r = requests.get(url)
+        # r = requests.get(url,headers=headers)
         print r.encoding
         soup = BS(r.text,'html5lib')
         # print 'soup', soup
@@ -76,6 +67,7 @@ class qxb(object):
             else:
                 gsm = ''
             updatetime = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()))
+
             sql = "insert into qxb values('%s','%s','%s','%s','%s')" %(gsm, xydm, zzjgdm, zch, updatetime)
 
             self.insert_into_database(sql)
